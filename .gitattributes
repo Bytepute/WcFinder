@@ -1,0 +1,9 @@
+# .gitattributes
+
+# Tell GitHub to treat these config files as "vendor code" (ignore in stats)
+*.mjs linguist-vendored
+*.js linguist-vendored
+
+# Force it to recognize your actual code as TypeScript
+*.ts linguist-language=TypeScript
+*.tsx linguist-language=TypeScript
