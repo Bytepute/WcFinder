@@ -9,9 +9,12 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@repo/schema": "workspace:*",
     "next": "16.0.8",
     "react": "19.2.1",
-    "react-dom": "19.2.1"
+    "react-dom": "19.2.1",
+    "react-hook-form": "^7.69.0",
+    "zustand": "^5.0.9"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
