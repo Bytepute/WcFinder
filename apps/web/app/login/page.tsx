@@ -9,7 +9,7 @@ export default function Login() {
       <Logo className="ml-10 mt-10" />
       <div className="flex justify-between items-center mx-20 2xl:mx-40">
         {/* Image & Text */}
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center ">
           <h1 className="text-[32px] text-text-primary font-bold">
             سلام، خوش اومدی
           </h1>
