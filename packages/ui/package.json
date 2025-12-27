@@ -1,0 +1,29 @@
+{
+  "name": "@repo/ui",
+  "exports": {
+    ".": "./src/index.tsx",
+    "./globals.css": "./src/globals.css"
+  },
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.tsx",
+  "types": "./src/index.tsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.20.0",
+  "devDependencies": {
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "next": "^16.1.1"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.90.12",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.4.0"
+  }
+}

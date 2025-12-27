@@ -8,8 +8,8 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "turbo": "^2.0.0",
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.0",
+    "turbo": "^2.0.0"
   },
-  "packageManager": "pnpm@10.20.0"
+  "packageManager": "pnpm@10.26.2"
 }
