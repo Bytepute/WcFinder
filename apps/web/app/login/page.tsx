@@ -1,7 +1,7 @@
 import { Logo } from "@repo/ui";
 import Image from "next/image";
 import loginImage from "@/assets/loginImage.png";
-import LoginForm from "@/components/Login/LoginForm";
+import LoginForm from "../../components/Login/LoginForm";
 
 export default function Login() {
   return (
