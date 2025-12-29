@@ -31,7 +31,6 @@ export default function WCMap({ wcs }: WCMapProps) {
 
   const [selectedWC, setSelectedWC] = useState<string | null>(null);
 
-  // 1. Transform your data into GeoJSON (The format MapLibre understands natively)
   const geojson: FeatureCollection = useMemo(() => {
     return {
       type: "FeatureCollection",
@@ -39,7 +38,7 @@ export default function WCMap({ wcs }: WCMapProps) {
         type: "Feature",
         geometry: {
           type: "Point",
-          coordinates: [wc.longitude, wc.latitude], // [Lng, Lat] order
+          coordinates: [wc.longitude, wc.latitude],
         },
         properties: {
           id: wc.id,
@@ -50,21 +49,19 @@ export default function WCMap({ wcs }: WCMapProps) {
     };
   }, [wcs]);
 
-  // 2. Define the Layer Style (How the points look)
-  // We render the Emoji as a "Text Label" inside the map engine.
   const layerStyle: SymbolLayer = {
     id: "wc-points",
     type: "symbol",
     layout: {
-      "text-field": "🚽", // Render the emoji directly
-      "text-size": 40, // Size of the emoji
-      "text-anchor": "bottom", // Pin the bottom of the emoji to the coordinate
-      "text-allow-overlap": true, // Allow them to stack if needed
-      "text-offset": [0, 0], // Fine-tune position if needed
+      "text-field": "🚽",
+      "text-size": 40,
+      "text-anchor": "bottom",
+      "text-allow-overlap": true,
+      "text-offset": [0, 0],
     },
     paint: {
       "text-color": "#235",
-      "text-halo-color": "#ffffff", // White outline (Halo) around emoji
+      "text-halo-color": "#ffffff",
       "text-halo-width": 2,
     },
   };
@@ -96,20 +93,19 @@ export default function WCMap({ wcs }: WCMapProps) {
         dragRotate={true}
         touchZoomRotate={true}
         // Interaction:
-        interactiveLayerIds={["wc-points"]} // Enable clicks ONLY on this layer
+        interactiveLayerIds={["wc-points"]}
         onClick={handleClick}
         cursor="pointer"
       >
         <GeolocateControl position="top-right" />
         <NavigationControl position="bottom-right" showCompass={false} />
 
-        {/* 3. The Data Source */}
+        {/* The Data Source */}
         <Source type="geojson" data={geojson}>
-          {/* 4. The Visual Layer */}
+          {/*  The Visual Layer */}
           <Layer {...layerStyle} />
         </Source>
 
-        {/* Optional: Show a simple Popup when clicked (Since layers don't have children) */}
         {selectedWC && (
           <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-white px-4 py-2 rounded-full shadow-lg z-50 animate-in fade-in slide-in-from-top-2">
             Selected: {selectedWC}

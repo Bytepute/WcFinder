@@ -70,7 +70,7 @@ export default async function MapPage({ searchParams }: MapPageProps) {
     ? wcs.find((wc) => wc.id === Number(wcId))
     : undefined;
   return (
-    <main className="relative w-full h-screen flex overflow-hidden">
+    <main className="relative w-full h-screen flex overflow-hidden" dir="rtl">
       <div className="hidden md:block w-96 h-full z-10 bg-white shadow-xl overflow-y-auto">
         {selectedWC ? (
           <WCDetailView wc={selectedWC} />
