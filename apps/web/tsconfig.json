@@ -19,8 +19,12 @@
         "name": "next",
       },
     ],
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
+      "@repo/ui": ["../../packages/ui/src"],
+      "@repo/ui/*": ["../../packages/ui/src/*"],
+      "@repo/ui/icons": ["../../packages/ui/src/components/icons/index.ts"],
     },
   },
   "include": [
@@ -30,6 +34,7 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts",
+    "src/types/**/*.d.ts",
   ],
   "exclude": ["node_modules"],
 }

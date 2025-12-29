@@ -2,7 +2,8 @@
   "name": "@repo/ui",
   "exports": {
     ".": "./src/index.tsx",
-    "./globals.css": "./src/globals.css"
+    "./globals.css": "./src/globals.css",
+    "./icons": "./src/icons/index.ts"
   },
   "version": "1.0.0",
   "description": "",
@@ -16,6 +17,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.20.0",
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "next": "^16.1.1"

@@ -4,6 +4,7 @@ import searchImage from "@/assets/searchImage.png";
 import Image from "next/image";
 import { Button, SearchInput } from "@repo/ui";
 import { useState } from "react";
+import { WCListCard } from "./WCListCard";
 
 export default function WCListView({ wcs }: { wcs: WC[] }) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -35,12 +36,7 @@ export default function WCListView({ wcs }: { wcs: WC[] }) {
       />
       {/* WCs List */}
       {filteredWcs.map((wc) => (
-        <div key={wc.id}>
-          <h2>{wc.name}</h2>
-          <p>Latitude: {wc.latitude}</p>
-          <p>Longitude: {wc.longitude}</p>
-          <p>Status: {wc.status}</p>
-        </div>
+        <WCListCard key={wc.id} wc={wc} />
       ))}
     </div>
   );
