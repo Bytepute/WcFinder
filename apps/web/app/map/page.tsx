@@ -54,6 +54,13 @@ export const MOCK_WCS: WC[] = [
     longitude: 51.4204,
     status: "open",
   },
+  {
+    id: 8,
+    name: "سرویس پل طبیع  testت",
+    latitude: 35.7347,
+    longitude: 51.4204,
+    status: "open",
+  },
 ];
 async function getWCs() {
   return MOCK_WCS;
@@ -71,7 +78,7 @@ export default async function MapPage({ searchParams }: MapPageProps) {
     : undefined;
   return (
     <main className="relative w-full h-screen flex overflow-hidden" dir="rtl">
-      <div className="hidden md:block w-96 h-full z-10 bg-white shadow-xl overflow-y-auto">
+      <div className="hidden md:block min-w-1/4 h-full z-10 bg-white shadow-xl [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] overflow-y-auto">
         {selectedWC ? (
           <WCDetailView wc={selectedWC} />
         ) : (
