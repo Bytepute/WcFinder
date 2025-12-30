@@ -16,9 +16,15 @@ import { useRouter, useSearchParams } from "next/navigation";
 export interface WC {
   id: number;
   name: string;
+  address: string;
+  rating: number;
+  ratingCount: number;
   latitude: number;
   longitude: number;
   status: "open" | "closed" | "maintenance";
+  isFree: boolean;
+  isUncrowded: boolean;
+  isClean: boolean;
 }
 
 interface WCMapProps {
