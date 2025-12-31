@@ -12,17 +12,10 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import { MapMarkerIcon } from "@repo/ui/icons";
 
 import { useRouter, useSearchParams } from "next/navigation";
-
-export interface WC {
-  id: number;
-  name: string;
-  latitude: number;
-  longitude: number;
-  status: "open" | "closed" | "maintenance";
-}
+import { WCDataModel } from "@/models/WCDataModel";
 
 interface WCMapProps {
-  wcs: WC[];
+  wcs: WCDataModel[];
 }
 
 export default function WCMap({ wcs }: WCMapProps) {
@@ -30,7 +23,7 @@ export default function WCMap({ wcs }: WCMapProps) {
   const searchParams = useSearchParams();
   const [selectedWC, setSelectedWC] = useState<number | null>(null);
 
-  const onMarkerClick = (wc: WC) => {
+  const onMarkerClick = (wc: WCDataModel) => {
     console.log("Clicked:", wc.id);
     const params = new URLSearchParams(searchParams.toString());
     params.set("wcId", wc.id.toString());

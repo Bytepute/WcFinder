@@ -1,10 +1,10 @@
-import { WC } from "@/components/Map/WCMap";
+import { WCDataModel } from "@/models/WCDataModel";
 import WCMap from "@/components/Map/WCMap";
 import WCDetailView from "@/components/Map/WCDetailView";
 import WCListView from "@/components/Map/WCListView";
 
 // placeholder service
-export const MOCK_WCS: WC[] = [
+export const MOCK_WCS: WCDataModel[] = [
   {
     id: 1,
     name: "سرویس بهداشتی پارک ملت",

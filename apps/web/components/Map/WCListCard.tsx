@@ -1,4 +1,4 @@
-import { WC } from "./WCMap";
+import { WCDataModel } from "@/models/WCDataModel";
 import Image from "next/image";
 import poopIcon from "../../assets/poop.svg?url";
 import {
@@ -11,7 +11,7 @@ import {
 import { toPersianNum } from "@/utils/toPersianNum";
 import { Badge } from "@repo/ui";
 
-export function WCListCard({ wc }: { wc: WC }) {
+export function WCListCard({ wc }: { wc: WCDataModel }) {
   return (
     <div
       className="flex flex-col gap-2 py-4 px-2 border-b border-gray-200"
