@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import Map, {
   NavigationControl,
@@ -19,6 +19,17 @@ interface WCMapProps {
 }
 
 export default function WCMap({ wcs }: WCMapProps) {
+  useEffect(() => {
+    import("maplibre-gl").then((maplibregl) => {
+      if (maplibregl.getRTLTextPluginStatus() === "unavailable") {
+        maplibregl.setRTLTextPlugin(
+          "https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.2.3/mapbox-gl-rtl-text.min.js",
+          true,
+        );
+      }
+    });
+  }, []);
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const [selectedWC, setSelectedWC] = useState<number | null>(null);
