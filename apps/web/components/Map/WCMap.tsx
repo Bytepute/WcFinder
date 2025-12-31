@@ -1,30 +1,24 @@
 "use client";
 
 import { useMemo, useState } from "react";
+
 import Map, {
-  Source,
-  Layer,
   NavigationControl,
   GeolocateControl,
-  MapLayerMouseEvent,
-  SymbolLayer,
+  Marker,
 } from "react-map-gl/maplibre";
+import "maplibre-gl/dist/maplibre-gl.css";
 
-import type { FeatureCollection } from "geojson";
+import { MapMarkerIcon } from "@repo/ui/icons";
+
 import { useRouter, useSearchParams } from "next/navigation";
 
 export interface WC {
   id: number;
   name: string;
-  address: string;
-  rating: number;
-  ratingCount: number;
   latitude: number;
   longitude: number;
   status: "open" | "closed" | "maintenance";
-  isFree: boolean;
-  isUncrowded: boolean;
-  isClean: boolean;
 }
 
 interface WCMapProps {
@@ -34,55 +28,41 @@ interface WCMapProps {
 export default function WCMap({ wcs }: WCMapProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [selectedWC, setSelectedWC] = useState<number | null>(null);
 
-  const [selectedWC, setSelectedWC] = useState<string | null>(null);
-
-  const geojson: FeatureCollection = useMemo(() => {
-    return {
-      type: "FeatureCollection",
-      features: wcs.map((wc) => ({
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [wc.longitude, wc.latitude],
-        },
-        properties: {
-          id: wc.id,
-          name: wc.name,
-          status: wc.status,
-        },
-      })),
-    };
-  }, [wcs]);
-
-  const layerStyle: SymbolLayer = {
-    id: "wc-points",
-    type: "symbol",
-    layout: {
-      "text-field": "🚽",
-      "text-size": 40,
-      "text-anchor": "bottom",
-      "text-allow-overlap": true,
-      "text-offset": [0, 0],
-    },
-    paint: {
-      "text-color": "#235",
-      "text-halo-color": "#ffffff",
-      "text-halo-width": 2,
-    },
+  const onMarkerClick = (wc: WC) => {
+    console.log("Clicked:", wc.id);
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("wcId", wc.id.toString());
+    setSelectedWC(wc.id);
+    router.push(`?${params.toString()}`, { scroll: false });
   };
 
-  const handleClick = (e: MapLayerMouseEvent) => {
-    const feature = e.features?.[0];
-    if (feature && feature.properties?.id) {
-      const id = feature.properties.id;
-      console.log("Clicked:", id);
-      const params = new URLSearchParams(searchParams.toString());
-      params.set("wcId", id.toString());
-      setSelectedWC(id);
-      router.push(`?${params.toString()}`, { scroll: false });
-    }
-  };
+  const markers = useMemo(() => {
+    return wcs.map((wc) => (
+      <Marker
+        key={wc.id}
+        longitude={wc.longitude}
+        latitude={wc.latitude}
+        anchor="bottom"
+        onClick={(e) => {
+          e.originalEvent.stopPropagation();
+
+          onMarkerClick(wc);
+        }}
+      >
+        <div className="cursor-pointer transition-transform hover:scale-110">
+          <MapMarkerIcon
+            className={`w-12 h-12 drop-shadow-md transition-colors ${
+              selectedWC === wc.id
+                ? "text-amber-600 animate-bounce"
+                : "text-amber-900 hover:text-amber-700"
+            }`}
+          />
+        </div>
+      </Marker>
+    ));
+  }, [wcs, selectedWC]);
 
   return (
     <div className="w-full h-dvh relative">
@@ -95,26 +75,18 @@ export default function WCMap({ wcs }: WCMapProps) {
         mapLib={import("maplibre-gl")}
         mapStyle="https://tiles.openfreemap.org/styles/bright"
         style={{ width: "100%", height: "100%" }}
-        // Optimization:
         dragRotate={true}
         touchZoomRotate={true}
-        // Interaction:
-        interactiveLayerIds={["wc-points"]}
-        onClick={handleClick}
-        cursor="pointer"
+        cursor="default"
       >
         <GeolocateControl position="top-right" />
         <NavigationControl position="bottom-right" showCompass={false} />
 
-        {/* The Data Source */}
-        <Source type="geojson" data={geojson}>
-          {/*  The Visual Layer */}
-          <Layer {...layerStyle} />
-        </Source>
+        {markers}
 
         {selectedWC && (
-          <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-white px-4 py-2 rounded-full shadow-lg z-50 animate-in fade-in slide-in-from-top-2">
-            Selected: {selectedWC}
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-white px-4 py-2 rounded-full shadow-lg z-50">
+            Selected ID: {selectedWC}
           </div>
         )}
       </Map>
