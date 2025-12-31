@@ -1,16 +1,69 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
+import localFont from "next/font/local";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const iranYekan = localFont({
+  src: [
+    {
+      path: "../fonts/IRANYekanX-Thin.woff2",
+      weight: "100",
+      style: "normal",
+    },
+    {
+      path: "../fonts/IRANYekanX-UltraLight.woff2",
+      weight: "200",
+      style: "normal",
+    },
+    {
+      path: "../fonts/IRANYekanX-Light.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../fonts/IRANYekanX-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../fonts/IRANYekanX-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../fonts/IRANYekanX-DemiBold.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../fonts/IRANYekanX-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../fonts/IRANYekanX-ExtraBold.woff2",
+      weight: "800",
+      style: "normal",
+    },
+    {
+      path: "../fonts/IRANYekanX-Black.woff2",
+      weight: "900",
+      style: "normal",
+    },
+    // Optional: Only include these if you specifically needed
+    // {
+    //   path: "../fonts/IRANYekanX-ExtraBlack.woff2",
+    //   weight: "950",
+    //   style: "normal",
+    // },
+    // {
+    //   path: "../fonts/IRANYekanX-Heavy.woff2",
+    //   weight: "1000", // CSS technically supports this, but browser support varies
+    //   style: "normal",
+    // },
+  ],
+  variable: "--font-yekan",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -25,9 +78,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${iranYekan.variable} font-sans antialiased`}>
         <Providers>{children}</Providers>
       </body>
     </html>
