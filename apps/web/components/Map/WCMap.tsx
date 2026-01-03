@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import Map, {
   NavigationControl,
   GeolocateControl,
   Marker,
+  MapRef,
 } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 
@@ -33,10 +34,18 @@ export default function WCMap({ wcs }: WCMapProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [selectedWC, setSelectedWC] = useState<number | null>(null);
+  const mapRef = useRef<MapRef>(null);
 
   const onMarkerClick = (wc: WCDataModel) => {
     console.log("Clicked:", wc.id);
     const params = new URLSearchParams(searchParams.toString());
+    mapRef.current?.flyTo({
+      center: [wc.longitude, wc.latitude],
+      zoom: 16, // Optional: zoom in closer when clicked
+      duration: 1500, // Animation duration in milliseconds
+      padding: { top: 50, bottom: 0, left: 0, right: 0 }, // Optional: Offset if you have UI covering part of the map
+    });
+
     params.set("wcId", wc.id.toString());
     setSelectedWC(wc.id);
     router.push(`?${params.toString()}`, { scroll: false });
@@ -71,6 +80,7 @@ export default function WCMap({ wcs }: WCMapProps) {
   return (
     <div className="w-full h-dvh relative">
       <Map
+        ref={mapRef}
         initialViewState={{
           longitude: 51.389,
           latitude: 35.689,

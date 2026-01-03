@@ -2,6 +2,10 @@ import { WCDataModel } from "@/models/WCDataModel";
 import WCMap from "@/components/Map/WCMap";
 import WCDetailView from "@/components/Map/WCDetailView";
 import WCListView from "@/components/Map/WCListView";
+import MobileMapSearch from "@/components/Map/MobileMapSearch";
+import { MobileMapNavigation } from "@/components/Map/MobileMapNavigation";
+import { WCListCard } from "@/components/Map/WCListCard";
+import WCCardMobile from "@/components/Map/WCCardMobile";
 
 // placeholder service
 export const MOCK_WCS: WCDataModel[] = [
@@ -124,17 +128,44 @@ export default async function MapPage({ searchParams }: MapPageProps) {
   const selectedWC = wcId
     ? wcs.find((wc) => wc.id === Number(wcId))
     : undefined;
+
   return (
-    <main className="relative w-full h-screen flex overflow-hidden" dir="rtl">
-      <div className="hidden md:block min-w-1/4 h-full z-10 bg-white shadow-xl [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] overflow-y-auto">
+    <main
+      className="relative w-full h-screen flex md:flex-row overflow-hidden"
+      dir="rtl"
+    >
+      {/* --- DESKTOP SIDEBAR  --- */}
+      <div className="hidden md:block w-full md:w-1/4 md:max-w-md shrink-0 h-full z-10 bg-white shadow-xl overflow-y-auto">
         {selectedWC ? (
           <WCDetailView wc={selectedWC} />
         ) : (
           <WCListView wcs={wcs} />
         )}
       </div>
-      {/* MAP */}
-      <div className="flex-1 relative h-full">
+
+      {/* --- MOBILE OVERLAYS  --- */}
+
+      <div className="md:hidden absolute inset-0 z-20 pointer-events-none flex flex-col justify-between">
+        {/* TOP: Search Bar */}
+        <div className="pointer-events-auto bg-white">
+          <MobileMapSearch />
+        </div>
+
+        {/* BOTTOM: Card & Navigation */}
+        <div className="pointer-events-auto flex flex-col w-full pb-0 ">
+          {selectedWC && (
+            <div className="px-4 mb-5 animate-in slide-in-from-bottom-4 fade-in">
+              <WCCardMobile wc={selectedWC} />
+            </div>
+          )}
+
+          <MobileMapNavigation />
+        </div>
+      </div>
+
+      {/* --- MAP CONTAINER --- */}
+
+      <div className="w-full h-full absolute inset-0 md:relative md:flex-1 z-0">
         <WCMap wcs={wcs} />
       </div>
     </main>

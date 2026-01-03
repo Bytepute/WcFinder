@@ -4,3 +4,7 @@ export { default as StarMinimalIcon } from "./starMinimal.svg";
 export { default as PriceTagIcon } from "./priceTag.svg";
 export { default as UserHandUpIcon } from "./userHandUp.svg";
 export { default as MapMarkerIcon } from "./mapPin.svg";
+export { default as BookMarkIcon } from "./bookmark.svg";
+export { default as UserIcon } from "./user.svg";
+export { default as ChatRoundIcon } from "./chatRound.svg";
+export { default as MapPointBoldIcon } from "./mapPointBold.svg";

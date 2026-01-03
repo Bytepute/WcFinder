@@ -1,12 +1,13 @@
 "use client";
-import { WC } from "@/components/Map/WCMap";
+
 import searchImage from "@/assets/searchImage.png";
 import Image from "next/image";
 import { Button, SearchInput } from "@repo/ui";
 import { useState } from "react";
 import { WCListCard } from "./WCListCard";
+import { WCDataModel } from "@/models/WCDataModel";
 
-export default function WCListView({ wcs }: { wcs: WC[] }) {
+export default function WCListView({ wcs }: { wcs: WCDataModel[] }) {
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredWcs = wcs.filter((wc) => wc.name.includes(searchQuery));
